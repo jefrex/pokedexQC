@@ -30,7 +30,7 @@ const getPokemons = async (id) => {
     const resp = await fetch(url)
     const data = await resp.json()
     creatPokemonCard(data)
-    
+
 
 }
 
@@ -41,11 +41,12 @@ const creatPokemonCard = (poke) => {
     const name = poke.name[0].toUpperCase() + poke.name.slice(1)
     const id = poke.id.toString().padStart(3, '0')
 
-    const pokeTypes = poke.types.map(type => type.type.name) > -1
+    const pokeTypes = poke.types.map(type => type.type.name)
+    const type = mainTypes.find(type => pokeTypes.indexOf(type) > 1)
     const color = colors[type]
 
     card.style.backgroundColor = color
-    
+
     const pokemonInnerHtml = `
     <div class="imgContainer">
         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png" alt="${poke.name}">
@@ -58,7 +59,7 @@ const creatPokemonCard = (poke) => {
      `
 
     card.innerHTML = pokemonInnerHtml
-    
+
     pokeContainer.appendChild(card)
 
 }
